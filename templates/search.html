@@ -1,0 +1,118 @@
+<HTML>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+        <!-- icons -->
+        <script src="https://kit.fontawesome.com/a7e5305de0.js" crossorigin="anonymous"></script>
+    
+        <!-- JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    
+        <title>newsILY</title>
+    </head>
+    
+    <body>
+        <div class="row">
+            <div class="col">
+                <div class="card card-body bg-dark">
+                    <div class="row">
+                        <div class="col">
+                            <img class="img-fluid" src="logo.jpeg" width="160" height="100" alt="">
+                        </div>
+                        <div class="col">
+                            <h1 style="margin-top: 1em" class="text-white">Welcome to newsILY</h1>
+                        </div>
+                        <div class="col text-right">
+                            <h3 style="margin-top: 1em" class="text-white">Name</h3>
+                            <button type="button" class="btn btn-primary">Articles Shared With You</button>
+                        </div>
+                        <!-- <div class="col text-right">
+                            <button style="margin-top: 2em" type="button" class="btn btn-primary">Login/Register</button>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    
+        <form method="POST">
+            <div class="col-md-6 offset-md-3 mt-5 pt-3">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search Article Keywords" aria-label="Recipient's username"
+                    name="article-keywword">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary btn-primary" type="submit" value="Submit"
+                            name="submit-button-1"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    
+        <br>
+        <h2>
+            <center>Articles Found</center>
+        </h2>
+        <br>
+    
+        <div class="row">
+            <br><br>
+            <div class="col-4 d-flex">
+                <div class="card">
+                    <img class="card-img-top" style="height:50%" src={{value.urlToImage}} alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{value.title}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Source: {{value.source.name}}</h6>
+                        <p class="card-text">{{value.description}}</p>
+                        <a href="{{value.url}}" class="btn btn-primary">See Article</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 d-flex">
+                <div class="card">
+                    <img class="card-img-top" style="height:50%" src={{value.urlToImage}} alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{value.title}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Source: {{value.source.name}}</h6>
+                        <p class="card-text">{{value.description}}</p>
+                        <a href="{{value.url}}" class="btn btn-primary">See Article</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 d-flex">
+                <div class="card">
+                    <img class="card-img-top" style="height:50%" src={{value.urlToImage}} alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{value.title}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Source: {{value.source.name}}</h6>
+                        <p class="card-text">{{value.description}}</p>
+                        <a href="{{value.url}}" class="btn btn-primary">See Article</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 d-flex">
+                <div class="card">
+                    <img class="card-img-top" style="height:50%" src={{value.urlToImage}} alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{value.title}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Source: {{value.source.name}}</h6>
+                        <p class="card-text">{{value.description}}</p>
+                        <a href="{{value.url}}" class="btn btn-primary">See Article</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    

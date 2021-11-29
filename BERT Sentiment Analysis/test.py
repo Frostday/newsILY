@@ -27,7 +27,7 @@ class SentimentClassifier(nn.Module):
 
 model = SentimentClassifier(len(class_names))
 
-model.load_state_dict(torch.load("bert_sentiment_analysis.pt", map_location=torch.device('cpu')))
+model.load_state_dict(torch.load("BERT Sentiment Analysis/bert_sentiment_analysis.pt", map_location=torch.device('cpu')))
 
 
 def predict_sentiment(sample_text):
@@ -50,4 +50,4 @@ def predict_sentiment(sample_text):
     print(f'Review text: {sample_text}')
     print(f'Sentiment  : {class_names[prediction]}')
 
-predict_sentiment("Kill me please")
+predict_sentiment("kill me please")
