@@ -10,7 +10,6 @@ user_id = -1
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    today = date.today()
     url = (f'https://newsapi.org/v2/top-headlines?'
         'category=general&'
         f'apiKey={API_KEY}')
