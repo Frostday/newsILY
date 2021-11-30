@@ -30,13 +30,14 @@
             <div class="card card-body bg-dark">
                 <div class="row">
                     <div class="col">
-                        <img class="img-fluid" src="logo.jpeg" width="160" height="100" alt="">
+                        <img class="img-fluid" src="{{url_for('static', filename='logo.jpeg')}}" width="160"
+                            height="100" alt="">
                     </div>
                     <div class="col">
                         <h1 style="margin-top: 1em" class="text-white">Welcome to newsILY</h1>
                     </div>
                     <div class="col text-right">
-                        <h3 style="margin-top: 1em" class="text-white">Name</h3>
+                        <h3 style="margin-top: 1em" class="text-white">Hi, Name</h3>
                         <button type="button" class="btn btn-primary">Articles Shared With You</button>
                     </div>
                     <!-- <div class="col text-right">
@@ -48,23 +49,16 @@
     </div>
 
     <form method="POST">
-        <div class="col-md-6 offset-md-3 mt-5 pt-3">
+        <div class="col-md-10 offset-md-1 mt-5 pt-3">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Search Articles"
-                    aria-label="Recipient's username" name="article-keywword">
-                <div class="input-group-append">
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Type
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <button class="dropdown-item" type="button">Keywords</button>
-                            <button class="dropdown-item" type="button">Phrase</button>
-                            <button class="dropdown-item" type="button">Domain</button>
-                        </div>
-                    </div>
-                </div>
+                <input type="text" class="form-control" placeholder="Search Articles Keyword or Phrase" aria-label="Recipient's username"
+                    name="article-keywords-phrase">
+                <input type="text" class="form-control col-md-2" placeholder="Search Domain" aria-label="Recipient's username"
+                    name="domain">
+                <input type="text" class="form-control col-md-2" placeholder="Search From Date" aria-label="Recipient's username"
+                    name="search-from">
+                <input type="text" class="form-control col-md-2" placeholder="Search To Date" aria-label="Recipient's username"
+                    name="search-to">
                 <div class="input-group-append">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2"
@@ -94,49 +88,18 @@
 
     <div class="row">
         <br><br>
+        {% for article in data %}
         <div class="col-4 d-flex">
             <div class="card">
-                <img class="card-img-top" style="height:50%" src={{value.urlToImage}} alt="Card image cap">
+                <img class="card-img-top" style="height:50%" src={{article['urlToImage']}} alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">{{value.title}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Source: {{value.source.name}}</h6>
-                    <p class="card-text">{{value.description}}</p>
-                    <a href="{{value.url}}" class="btn btn-primary">See Article</a>
+                    <h5 class="card-title">{{article['title']}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Source: {{article['source']['name']}}</h6>
+                    <p class="card-text">{{article['description']}}</p>
+                    <a href="{{article['url']}}" class="btn btn-primary">See Article</a>
                 </div>
             </div>
         </div>
-        <div class="col-4 d-flex">
-            <div class="card">
-                <img class="card-img-top" style="height:50%" src={{value.urlToImage}} alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">{{value.title}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Source: {{value.source.name}}</h6>
-                    <p class="card-text">{{value.description}}</p>
-                    <a href="{{value.url}}" class="btn btn-primary">See Article</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4 d-flex">
-            <div class="card">
-                <img class="card-img-top" style="height:50%" src={{value.urlToImage}} alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">{{value.title}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Source: {{value.source.name}}</h6>
-                    <p class="card-text">{{value.description}}</p>
-                    <a href="{{value.url}}" class="btn btn-primary">See Article</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4 d-flex">
-            <div class="card">
-                <img class="card-img-top" style="height:50%" src={{value.urlToImage}} alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">{{value.title}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Source: {{value.source.name}}</h6>
-                    <p class="card-text">{{value.description}}</p>
-                    <a href="{{value.url}}" class="btn btn-primary">See Article</a>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </body>
