@@ -51,8 +51,34 @@
         <form method="POST">
             <div class="col-md-6 offset-md-3 mt-5 pt-3">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Search Article Keywords" aria-label="Recipient's username"
-                    name="article-keywword">
+                    <input type="text" class="form-control" placeholder="Search Articles"
+                        aria-label="Recipient's username" name="article-keywword">
+                    <div class="input-group-append">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Type
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <button class="dropdown-item" type="button">Keywords</button>
+                                <button class="dropdown-item" type="button">Phrase</button>
+                                <button class="dropdown-item" type="button">Domain</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group-append">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Sort by
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <button class="dropdown-item" type="button">Popularity</button>
+                                <button class="dropdown-item" type="button">Date</button>
+                                <button class="dropdown-item" type="button">Relevance</button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="input-group-append">
                         <button class="btn btn-outline-primary btn-primary" type="submit" value="Submit"
                             name="submit-button-1"><i class="fa fa-search"></i></button>
