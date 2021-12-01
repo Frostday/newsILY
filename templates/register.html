@@ -87,7 +87,7 @@
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
-				<center><img src="logo.jpeg" width="230" height="200" style="border-radius:50%; padding: 5px;"></center>
+				<center><img src="{{url_for('static', filename='logo.jpeg')}}" width="230" height="200" style="border-radius:50%; padding: 5px;"></center>
 				<div class="d-flex justify-content-center">
 					<h4 class="form-title form-color">Register</h4>
 				</div>
@@ -108,18 +108,16 @@
 					</form>
 				</div>
 				<div class="mt-4">
-					<div class="d-flex justify-content-center links">
-						<p class="form-color">Already have an account?<a href="login.html" class="ml-1">Login</a></p>
-					</div>
+					<form action="/login" method="GET">
+						<div class="d-flex justify-content-center links">
+							<h6 class="form-color">Already have an account? <button type="submit"
+									class="small-btn btn-primary">Login</button>
+							</h6>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
-	</div>
-	<script>
-		for (var field in form_fields) {
-			form_fields[field].className += ' form-control'
-		}
-	</script>
 	</div>
 </body>
 

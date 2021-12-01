@@ -36,13 +36,22 @@
                     <div class="col">
                         <h1 style="margin-top: 1em" class="text-white">Welcome to newsILY</h1>
                     </div>
+                    {% if x %}
                     <div class="col text-right">
-                        <h3 style="margin-top: 1em" class="text-white">Hi, Name</h3>
-                        <button type="button" class="btn btn-primary">Articles Shared With You</button>
+                        <h3 style="margin-top: 1em" class="text-white">Hi, {{y}}</h3>
+                        <form action="/shared" method="GET">
+                            <button type="submit" class="btn btn-primary" name="submit-button-2">Articles Shared With
+                                You</button>
+                        </form>
                     </div>
-                    <!-- <div class="col text-right">
-                        <button style="margin-top: 2em" type="button" class="btn btn-primary">Login/Register</button>
-                    </div> -->
+                    {% else %}
+                    <form action="/login" method="GET">
+                        <div class="col text-right">
+                            <button style="margin-top: 2em" type="submit"
+                                class="btn btn-primary">Login/Register</button>
+                        </div>
+                    </form>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -51,25 +60,22 @@
     <form method="POST">
         <div class="col-md-10 offset-md-1 mt-5 pt-3">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Search Articles Keyword or Phrase" aria-label="Recipient's username"
-                    name="article-keywords-phrase">
-                <input type="text" class="form-control col-md-2" placeholder="Search Domain" aria-label="Recipient's username"
-                    name="domain">
-                <input type="text" class="form-control col-md-2" placeholder="Search From Date" aria-label="Recipient's username"
-                    name="search-from">
-                <input type="text" class="form-control col-md-2" placeholder="Search To Date" aria-label="Recipient's username"
-                    name="search-to">
+                <input type="text" class="form-control" placeholder="Search Articles Keyword or Phrase"
+                    aria-label="Recipient's username" name="article-keywords-phrase">
+                <input type="text" class="form-control col-md-2" placeholder="Language (en, fr etc.)"
+                    aria-label="Recipient's username" name="language">
+                <input type="text" class="form-control col-md-2" placeholder="Search From Date"
+                    aria-label="Recipient's username" name="search-from">
+                <input type="text" class="form-control col-md-2" placeholder="Search To Date"
+                    aria-label="Recipient's username" name="search-to">
                 <div class="input-group-append">
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Sort by
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <button class="dropdown-item" type="button">Popularity</button>
-                            <button class="dropdown-item" type="button">Date</button>
-                            <button class="dropdown-item" type="button">Relevance</button>
-                        </div>
+                            <select class="btn btn-primary" name="dropdown-menu" id="dropdown-menu">
+                                <option value="" disabled selected hidden>Sort By</option>
+                                <option class="dropdown-item btn-primary text-white" value="popularity">Popularity</option>
+                                <option class="dropdown-item btn-primary text-white" value="publishedAt">Date</option>
+                                <option class="dropdown-item btn-primary text-white" value="relevancy">Relevance</option>
+                            </select>
                     </div>
                 </div>
                 <div class="input-group-append">
@@ -82,7 +88,11 @@
 
     <br>
     <h2>
+        {% if z %}
+        <center>Searched News Articles</center>
+        {% else %}
         <center>Trending News</center>
+        {% endif %}
     </h2>
     <br>
 
@@ -96,7 +106,17 @@
                     <h5 class="card-title">{{article['title']}}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Source: {{article['source']['name']}}</h6>
                     <p class="card-text">{{article['description']}}</p>
-                    <a href="{{article['url']}}" class="btn btn-primary">See Article</a>
+                    <div class="row">
+                        <div class="col text-left">
+                            <a href="{{article['url']}}" class="btn btn-primary">See Article</a>
+                        </div>
+                        <form action="/article" method="GET">
+                            <div class="col text-right">
+                                <button type="submit" class="btn btn-success">Article
+                                    Information</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
