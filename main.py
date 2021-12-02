@@ -1,4 +1,5 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, url_for
+from nltk.util import pr
 import requests
 import sqlite3
 import os
@@ -58,8 +59,8 @@ def index():
                'language=en&'
                f'apiKey={API_KEY}')
         response = requests.get(url)
-        print(response.json())
-        print(response.json()['articles'][0]['content'])
+        # print(response.json())
+        # print(response.json()['articles'][0]['content'])
         articles = response.json()['articles']
 
         return render_template('./index.html', data=articles, x=logged_in, y=user_name, z=searched)
@@ -110,20 +111,53 @@ def register():
 @app.route('/shared', methods=['GET', 'POST'])
 def shared():
     global logged_in, user_email, user_name
-    return render_template("./shared.html")
+    sqlconnection = sqlite3.Connection(currentlocation + "/shared.db")
+    cursor = sqlconnection.cursor()
+    query = f'SELECT email_1, name_1, article_info from Shared WHERE email_2="{user_email}"'
+    rows = cursor.execute(query)
+    rows = rows.fetchall()
+    print(rows)
+    rows = [list(i) for i in rows]
+    for i in range(len(rows)):
+        rows[i][2] = eval(rows[i][2])
+    return render_template("./shared.html", x=logged_in, y=user_name, z=rows)
 
 
 @app.route('/article', methods=['GET', 'POST'])
 def article_info():
     global logged_in, user_email, user_name
-    info = eval(request.form['article-info'])
+    print(request.form)
+    if request.form.get('article-info'):
+        print(request.form['article-info'])
+        info = eval(request.form['article-info'])
+    else:
+        info = eval(request.form['submit-button'])
     b = TextBlob(info['description'])
     info['language'] = b.detect_language()
     if info['language'] == 'en':
-        info['sentiment'], info['entities'], info['explained_entities'] = get_sentiment_and_entities(info['description'])
+        info['sentiment'], info['entities'], info['explained_entities'] = get_sentiment_and_entities(
+            info['description'])
     else:
         info['sentiment'] = 'Cannot analyze in non-English language'
         info['entities'] = 'Cannot analyze in non-English language'
+    if request.form.get('submit-button'):
+        shared_to = request.form['shared-to']
+        sqlconnection = sqlite3.Connection(currentlocation + "/shared.db")
+        cursor = sqlconnection.cursor()
+        print(info)
+        for i in info.keys():
+            if type(info[i]) == str and info[i] != None:
+                info[i] = info[i].replace("'", " ")
+                info[i] = info[i].replace('"', ' ')
+            elif type(info[i]) == dict:
+                for j in info[i].keys():
+                    if type(info[i][j]) == str and info[i][j] != None:
+                        info[i][j] = info[i][j].replace("'", " ")
+                        info[i][j] = info[i][j].replace('"', ' ')
+        query = f'INSERT INTO Shared VALUES("{user_email}", "{user_name}", "{shared_to}", "{info}")'
+        print(query)
+        cursor.execute(query)
+        sqlconnection.commit()
     return render_template("./article.html", x=logged_in, y=user_name, info=info)
 
 

@@ -30,8 +30,10 @@
             <div class="card card-body bg-dark">
                 <div class="row">
                     <div class="col">
-                        <img class="img-fluid" src="{{url_for('static', filename='logo.jpeg')}}" width="160"
-                            height="100" alt="">
+                        <a href="{{url_for('index')}}">
+                            <img class="img-fluid" src="{{url_for('static', filename='logo.jpeg')}}" width="160"
+                                height="100" alt="">
+                        </a>
                     </div>
                     <div class="col">
                         <h1 style="margin-top: 1em" class="text-white">Welcome to newsILY</h1>
@@ -61,12 +63,14 @@
     <form method="POST">
         <div class="col-md-10 offset-md-1 mt-5 pt-3">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Enter Username" aria-label="Recipient's username"
+                <input type="text" class="form-control" placeholder="Enter User Email" aria-label="Recipient's username"
                     name="shared-to">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="submit" name="submit-button">Share</button>
+                    <button class="btn btn-outline-secondary" type="submit" name="submit-button"
+                        value="{{info}}">Share</button>
                 </div>
             </div>
+            <!-- need to send all article info under name article-info -->
         </div>
     </form>
     {% endif %}
@@ -76,6 +80,7 @@
     </div>
     <div class="col-lg-12 offset-md-2 text-left mt-5">
         <h5>Source: {{info['source']['name']}}</h5>
+        <h5>Author: {{info['author']}}</h5>
         <h5>Published Date: {{info['publishedAt']}}</h5>
         <h5>Language: {{info['language']}}</h5>
     </div>
