@@ -30,56 +30,97 @@
             <div class="card card-body bg-dark">
                 <div class="row">
                     <div class="col">
-                        <img class="img-fluid" src="logo.jpeg" width="160" height="100" alt="">
+                        <img class="img-fluid" src="{{url_for('static', filename='logo.jpeg')}}" width="160"
+                            height="100" alt="">
                     </div>
                     <div class="col">
                         <h1 style="margin-top: 1em" class="text-white">Welcome to newsILY</h1>
                     </div>
+                    {% if x %}
                     <div class="col text-right">
-                        <h3 style="margin-top: 1em" class="text-white">Hi, Name</h3>
-                        <button type="button" class="btn btn-primary">Articles Shared With You</button>
+                        <h3 style="margin-top: 1em" class="text-white">Hi, {{y}}</h3>
+                        <form action="/shared" method="GET">
+                            <button type="submit" class="btn btn-primary" name="submit-button-2">Articles Shared With
+                                You</button>
+                        </form>
                     </div>
-                    <!-- <div class="col text-right">
-                            <button style="margin-top: 2em" type="button" class="btn btn-primary">Login/Register</button>
-                        </div> -->
+                    {% else %}
+                    <form action="/login" method="GET">
+                        <div class="col text-right">
+                            <button style="margin-top: 2em" type="submit"
+                                class="btn btn-primary">Login/Register</button>
+                        </div>
+                    </form>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 
+    {% if x %}
+    <form method="POST">
+        <div class="col-md-10 offset-md-1 mt-5 pt-3">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Enter Username" aria-label="Recipient's username"
+                    name="shared-to">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" name="submit-button">Share</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    {% endif %}
+
     <div class="col-lg-12 text-center mt-5">
-        <h2>Title</h2>
+        <h2>{{info['title']}} - <a href="{{info['url']}}">See Full Article Here</a></h2>
     </div>
     <div class="col-lg-12 offset-md-2 text-left mt-5">
-        <h5>Published Date: {{x['Date']}}</h5>
+        <h5>Source: {{info['source']['name']}}</h5>
+        <h5>Published Date: {{info['publishedAt']}}</h5>
+        <h5>Language: {{info['language']}}</h5>
     </div>
     <div class="col-lg-12 offset-md-2 text-left mt-5">
         <div class="card" style="width: 65rem;">
             <div class="card-body">
                 <h5 class="card-title text-center">Article Summary</h5>
-                <p class="card-text">{{x['article summary']}}</p>
+                <p class="card-text">{{info['description']}}</p>
             </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-3 offset-md-1 text-left mt-5">
-                <div class="card" style="width: 30rem;">
+                <div class="card" style="width: 450;">
                     <div class="card-body">
                         <h5 class="card-title text-center">Sentiment Analysis</h5>
-                        <p class="card-text">{{x['sentiment']}}</p>
+                        {% if info['sentiment'] == 0 %}
+                        <p class="card-text text-danger">Negative</p>
+                        {% elif info['sentiment'] == 1 %}
+                        <p class="card-text text-primary">Neutral</p>
+                        {% elif info['sentiment'] == 2 %}
+                        <p class="card-text text-success">Positive</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 offset-md-2 text-left mt-5">
-                <div class="card" style="width: 30rem;">
+                <div class="card" style="width: 450;">
                     <div class="card-body">
                         <h5 class="card-title text-center">Named Entities</h5>
-                        <p class="card-text">{{x['entities']}}</p>
+                        <p class="card-text">
+                            {% for entity in info['entities'] %}
+                            {{entity[0]}} - {{entity[1]}}<br>
+                            {% endfor %}
+                            <br>
+                            {% for entity in info['explained_entities'] %}
+                            {{entity[0]}} - {{entity[1]}}<br>
+                            {% endfor %}
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <br><br><br>
 
 </body>

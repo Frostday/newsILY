@@ -110,9 +110,9 @@
                         <div class="col text-left">
                             <a href="{{article['url']}}" class="btn btn-primary">See Article</a>
                         </div>
-                        <form action="/article" method="GET">
+                        <form action="/article" method="POST">
                             <div class="col text-right">
-                                <button type="submit" class="btn btn-success">Article
+                                <button type="submit" class="btn btn-success" name="article-info" value="{{article}}">Article
                                     Information</button>
                             </div>
                         </form>

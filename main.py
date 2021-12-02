@@ -1,7 +1,9 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect
 import requests
 import sqlite3
 import os
+from textblob import TextBlob
+from models import get_sentiment_and_entities
 
 currentlocation = os.path.dirname(os.path.abspath(__file__))
 
@@ -13,12 +15,13 @@ user_email = ''
 user_name = ''
 searched = False
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global logged_in, user_email, user_name, searched
     if request.method == "POST":
         searched = True
-        print(request.form)
+        # print(request.form)
         keywords = request.form['article-keywords-phrase']
         language = request.form['language']
         # (YYYY-MM-DD)
@@ -34,6 +37,8 @@ def index():
             url += 'q=' + keywords + '&'
         if language != '':
             url += 'language=' + language + '&'
+        else:
+            url += 'language=en&'
         if search_from != '':
             url += 'from=' + search_from + '&'
         if search_to != '':
@@ -43,16 +48,18 @@ def index():
         url += 'apiKey=' + API_KEY
 
         response = requests.get(url)
-        print(response.json())
+        # print(response.json())
         articles = response.json()['articles']
         return render_template('./index.html', data=articles, x=logged_in, y=user_name, z=searched)
     else:
         searched = False
         url = (f'https://newsapi.org/v2/top-headlines?'
-                'category=general&'
-                f'apiKey={API_KEY}')
+               'category=general&'
+               'language=en&'
+               f'apiKey={API_KEY}')
         response = requests.get(url)
-        # print(response.json())
+        print(response.json())
+        print(response.json()['articles'][0]['content'])
         articles = response.json()['articles']
 
         return render_template('./index.html', data=articles, x=logged_in, y=user_name, z=searched)
@@ -99,6 +106,7 @@ def register():
         return redirect("/login")
     return render_template("./register.html")
 
+
 @app.route('/shared', methods=['GET', 'POST'])
 def shared():
     global logged_in, user_email, user_name
@@ -108,13 +116,15 @@ def shared():
 @app.route('/article', methods=['GET', 'POST'])
 def article_info():
     global logged_in, user_email, user_name
-    info = {}
-    info['Date'] = ''
-    info['article text'] = ''
-    info['article summary'] = ''
-    info['sentiment'] = ''
-    info['entities'] = ''
-    return render_template("./article.html", x=info)
+    info = eval(request.form['article-info'])
+    b = TextBlob(info['description'])
+    info['language'] = b.detect_language()
+    if info['language'] == 'en':
+        info['sentiment'], info['entities'], info['explained_entities'] = get_sentiment_and_entities(info['description'])
+    else:
+        info['sentiment'] = 'Cannot analyze in non-English language'
+        info['entities'] = 'Cannot analyze in non-English language'
+    return render_template("./article.html", x=logged_in, y=user_name, info=info)
 
 
 app.run(debug=True, port=8080)
