@@ -173,4 +173,4 @@ def article_info():
     return render_template("./article.html", x=logged_in, y=user_name, info=info)
 
 
-app.run(debug=True, port=8080)
+app.run(debug=False, port=8080)
