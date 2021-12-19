@@ -7,4 +7,4 @@ A website which allows its users to search for the most relevant news articles r
 | ![](assets/ss-3.png) | ![](assets/ss-4.png) |
 | ![](assets/ss-5.png) | ![](assets/ss-6.png) |
 | ![](assets/ss-7.png) | ![](assets/ss-8.png) |
-| ![](assets/ss-9.png) | |
+| ![](assets/ss-9.png) |
